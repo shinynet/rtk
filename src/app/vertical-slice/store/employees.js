@@ -69,7 +69,7 @@ export const fetchEmployees = () => dispatch => {
 	dispatch(fetchEmployeesRequest())
 	http.get('employees')
 		.then(({data}) => dispatch(fetchEmployeesSuccess(data)))
-		.catch(({message}) => fetchEmployeesFailure(message))
+		.catch(({message}) => dispatch(fetchEmployeesFailure(message)))
 }
 
 export default reducer

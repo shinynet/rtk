@@ -42,14 +42,19 @@ const {actions, reducer} = createSlice({
  * Reselect comes bundled (and re-exported)
  * for creating memoized state selectors.
  */
+const listMapSelector = ({
+	id,
+	employee_name: name,
+	employee_age: age,
+	employee_salary: salary
+}) => ({id, name, age, salary})
+const listSortSelector = ({name: a}, {name: b}) => a.localeCompare(b)
+
 export const employeesSelector = createSelector(
-	({list}) => list,
-	employees => employees.map(({
-		id,
-		employee_name: name,
-		employee_age: age,
-		employee_salary: salary
-	}) => ({id, name, age, salary}))
+	state => state.list
+		.map(listMapSelector)
+		.sort(listSortSelector),
+	list => list
 )
 
 /**
